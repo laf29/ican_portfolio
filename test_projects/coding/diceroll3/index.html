@@ -1,0 +1,432 @@
+<!DOCTYPE html><html><head><title>Dice Roll</title><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui=1"><meta charset="UTF-8"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="description" content=""><link rel="manifest" href="manifest.json"><link rel="icon" type="image/png" href="icon64.png"><link rel="apple-touch-icon" sizes="180x180" href="icon180.png"><link rel="icon" type="image/png" sizes="32x32" href="icon32.png"><link rel="icon" type="image/png" sizes="16x16" href="icon16.png"><style>html,body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  overflow:hidden;
+  font-family: Verdana;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#canvaswrapper {
+  text-align: center ;
+}
+</style><style>@font-face { font-family: "BitCell" ; src: url("fonts/BitCell.ttf") format("truetype"); }</style><style>@font-face { font-family: "RetroGaming" ; src: url("fonts/RetroGaming.ttf") format("truetype"); }</style><script>window.fonts = ["BitCell","RetroGaming"]</script></head><body class="noselect custom-cursor" oncontextmenu="return false;"><div id="canvaswrapper"></div><script type="text/javascript">var resources = {"images":[{"file":"1.png","version":4,"size":101,"properties":{"frames":1,"fps":5}},{"file":"2.png","version":4,"size":108,"properties":{"frames":1,"fps":5}},{"file":"3.png","version":4,"size":110,"properties":{"frames":1,"fps":5}},{"file":"4.png","version":4,"size":106,"properties":{"frames":1,"fps":5}},{"file":"5.png","version":4,"size":110,"properties":{"frames":1,"fps":5}},{"file":"6.png","version":4,"size":101,"properties":{"frames":1,"fps":5}},{"file":"b.png","version":4,"size":89,"properties":{"frames":1,"fps":5}},{"file":"blue.png","version":23,"size":101,"properties":{"frames":1,"fps":5}},{"file":"broll.png","version":31,"size":107,"properties":{"frames":1,"fps":5}},{"file":"g.png","version":3,"size":89,"properties":{"frames":1,"fps":5}},{"file":"green.png","version":7,"size":102,"properties":{"frames":1,"fps":5}},{"file":"groll.png","version":8,"size":108,"properties":{"frames":1,"fps":5}},{"file":"icon.png","version":36,"size":107,"properties":{"frames":1,"fps":5}},{"file":"r.png","version":3,"size":89,"properties":{"frames":1,"fps":5}},{"file":"red.png","version":7,"size":103,"properties":{"frames":1,"fps":5}},{"file":"rroll.png","version":4,"size":111,"properties":{"frames":1,"fps":5}}],"assets":[],"maps":{"mapb":"{\"width\":6,\"height\":3,\"block_width\":7,\"block_height\":7,\"sprites\":[0,\"blue\",\"green\",\"broll:0,0\",\"broll:1,0\",\"red\"],\"data\":[1,0,0,0,0,0,2,0,0,3,4,0,5,0,0,0,0,0]}","mapg":"{\"width\":6,\"height\":3,\"block_width\":7,\"block_height\":7,\"sprites\":[0,\"blue\",\"green\",\"groll:0,0\",\"groll:1,0\",\"red\"],\"data\":[1,0,0,0,0,0,2,0,0,3,4,0,5,0,0,0,0,0]}","mapr":"{\"width\":6,\"height\":3,\"block_width\":7,\"block_height\":7,\"sprites\":[0,\"blue\",\"green\",\"rroll:0,0\",\"rroll:1,0\",\"red\"],\"data\":[1,0,0,0,0,0,2,0,0,3,4,0,5,0,0,0,0,0]}","rollingb":"{\"width\":6,\"height\":3,\"block_width\":7,\"block_height\":7,\"sprites\":[0,\"b:0,0\",\"b\"],\"data\":[1,2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2]}","rollingg":"{\"width\":6,\"height\":3,\"block_width\":7,\"block_height\":7,\"sprites\":[0,\"g:0,0\"],\"data\":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]}","rollingr":"{\"width\":6,\"height\":3,\"block_width\":7,\"block_height\":7,\"sprites\":[0,\"r:0,0\"],\"data\":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]}"},"sounds":[],"music":[]};
+var graphics = "M1";
+
+</script><script type="text/javascript">var orientation = 'landscape' ;
+var aspect = 'free' ;
+var ms_libs = [] ;
+window.skip_service_worker = true;
+window.exported_project = true;
+window.ms_use_server = false ;
+</script><script src="compiler.js"></script><script src="parser.js"></script><script src="processor.js"></script><script src="program.js"></script><script src="routine.js"></script><script src="runner.js"></script><script src="token.js"></script><script src="tokenizer.js"></script><script src="transpiler.js"></script><script src="microengine.js"></script></body><script type="text/javascript">//
+//
+// The game is started with the code below.
+// Once you have received the "started" signal (see below),
+// you can do the following:
+// 1) Inject functions or objects into the global context of the microStudio engine, example:
+//
+//   window.player.setGlobal("special_callback",function(x) { console.info(x) }) ;
+//   // Your microScript code can now call the "special_callback" function
+//
+// 2) Call microScript global functions from your JavaScript code, example:
+//
+//   window.player.call("call_me_from_javascript",[10,1000]) ;
+//   // arguments to the function call are provided as an array
+//
+// 3) Run a microScript code snippet from your JavaScript code, example:
+//
+//   window.player.exec("player.position_x = 50",function(result) { console.log(result) ; }) ;
+//
+
+window.addEventListener("load",function() {
+  window.player = new Player(function(event) {
+    if (event.name == "started") {
+      // signal that the game is started
+    }
+    else if (event.name == "log") {
+      // console.info(event.data) ;
+    }
+  }) ;
+  document.body.focus() ;
+}) ;
+
+</script><script id="code" type="text/x-microscript">
+
+
+function()
+//        https://microstudio.dev/i/mrLman/gamesproglibrary/
+
+
+
+// takes an angle in degrees and returns a vector in the form of a list [x, y]
+// the elements [x, y] of this direction vector can then be multiplied by a
+// certain speed (in pixels per frame) to move an entity on the screen
+angleToVector = function(angle)
+  return [cosd(angle), sind(angle)]
+end
+
+// discover the name of the sprite portion at an (x, y) position in the world
+// NOTE: the draw width/height is not the width of the map, but how width/high
+// you draw it in the game
+checkCollision = function(x, y, map_name, map_draw_width, map_draw_height)
+  local grid_x = floor((x + map_draw_width / 2) / (map_draw_width / maps[map_name].width))
+  local grid_y = floor((y + map_draw_height / 2) / (map_draw_height / maps[map_name].height))
+  return maps[map_name].get(grid_x, grid_y)
+end
+
+// checks to see if the mouse is touching/hovering over a rectangle
+// useful for detecting hover/click on buttons
+checkRectMouseHover = function(x, y, width, height)
+  local hover = true
+  if mouse.x < (x - width/2) then hover = false end
+  if mouse.x > (x + width/2) then hover = false end
+  if mouse.y < (y - height/2) then hover = false end
+  if mouse.y > (y + height/2) then hover = false end
+  return hover
+end
+
+// returns a random item from a list
+choose = function(lst)
+  local index = random.nextInt(lst.length)
+  return lst[index]
+end
+
+// keep a value within a set range
+// useful for keeping a player on the screen etc.
+// NOTE: returns the new value, does not automatically change it
+clamp = function(value, lower_limit, upper_limit)
+  local val = max(value, lower_limit)
+  val = min(val, upper_limit)
+  return val
+end
+
+// takes screen co-ordinates (not map coord) and replaces the map square with a blank
+// useful for removing items from the map when collecting gems etc.
+deleteMapItem = function(x, y, map_name, map_draw_width, map_draw_height)
+  local grid_x = floor((x + map_draw_width / 2) / (map_draw_width / maps[map_name].width))
+  local grid_y = floor((y + map_draw_height / 2) / (map_draw_height / maps[map_name].height))
+  maps[map_name].set(grid_x, grid_y, " ")
+end
+
+// find the distance between object 1 and object 2
+// useful for a simple circular collision detection
+distance = function(x1, y1, x2, y2)
+  local a = x2 - x1
+  local b = y2 - y1
+  local c = sqrt(pow(a, 2) + pow(b, 2))
+  return c
+end
+
+// returns a number that moves smoothly between .4 and 1
+// useful for flashing text if used to set the alpha each frame
+getFlashValue = function(seconds_per_flash = 1.5)
+  return pow(cos(system.time()/1000*PI/seconds_per_flash), 2) * 0.6 + .4
+end
+
+// finds the angle in degrees from point 1 to point 2
+getAngle = function(x1, y1, x2, y2)
+  return atan2d(y2 - y1, x2 - x1)
+end
+
+// slowly transition a variable to value for smooth tween effects
+moveToward = function(current_value, target, amount)
+  local new_value = 0
+  if current_value == target then
+    new_value = current_value
+  elsif current_value < target then
+    new_value = current_value + amount
+    if new_value > target then new_value = target end
+  elsif current_value > target then
+    new_value = current_value - amount
+    if new_value < target then new_value = target end  
+  end
+  return new_value
+end
+
+// sets the length of a movement vector to 1, making it a direction vector
+// useful for directions as it can then be multiplied by an object's speed
+normalize = function(vector)
+  local x = vector[0]
+  local y = vector[1]
+  local v = sqrt(pow(x, 2) + pow(y, 2))
+  local new_x = x / v
+  local new_y = y / v
+  return [new_x, new_y]
+end
+
+// returns a random number (float/with decimals) within the range [low, high)
+randRange = function(low, high)
+  return (high - low) * random.next() + low
+end
+
+// removes objects from a given list that have a property "delete = true"
+// useful for deleting enemies, bullets etc. run at the end of each frame
+// then simply set object.delete = true to ensure it's deletion
+removeDeleted = function(object_list)
+  for i = object_list.length - 1 to 0 by -1
+    if object_list[i].delete then 
+      object_list.removeAt(i) 
+    end
+  end
+end
+
+// find the diagonal length of a vector
+vectorLength = function(x, y)
+  return sqrt(pow(x, 2) + pow(y, 2))
+end
+
+// takes a (direction or movement) vector in the form of a list [x, y]
+// returns an angle in degrees
+vectorToAngle = function(vec)
+  return atan2d(vec[1], vec[0])
+end
+
+// makes the object wrap around the screen when moving off the edge
+// note: object must have x and y fields (variables)
+wrap = function(obj, leeway = 0)
+  if obj.x + leeway < -screen.width/2 then
+    obj.x = screen.width/2 + leeway
+  elsif obj.x - leeway > screen.width/2 then
+    obj.x = -screen.width/2 - leeway
+  end 
+  if obj.y + leeway < -screen.height/2 then
+    obj.y = screen.height/2 + leeway
+  elsif obj.y - leeway > screen.height/2 then
+    obj.y = -screen.height/2 - leeway
+  end 
+end
+
+// calculate the map grid position of a specific x value in the world
+xpos_to_grid = function(x, map_columns, map_draw_width)
+  local column_draw_width = map_draw_width / map_columns
+  return floor((x + map_draw_width / 2) / column_draw_width)
+end
+
+// calculate the map grid position of a specific y value in the world
+ypos_to_grid = function(y, map_rows, map_draw_height)
+  local row_draw_height = map_draw_height / map_rows
+  return floor((y + map_draw_height / 2) / row_draw_height)
+end
+
+
+
+end()
+
+
+
+function()
+//Random Extended by Mythril
+//https://microstudio.dev/i/Mythril/randomextended/
+
+//Returns a random color code.
+random.color = function()
+  local color = "rgb("
+  color += random.nextInt(256) + ","
+  color += random.nextInt(256) + ","
+  color += random.nextInt(256) + ")"
+  return color
+end
+
+//Returns a random color code from the ranges you gave.
+random.colorRGB = function(rMin=0,rMax=255,gMin=0,gMax=255,bMin=0,bMax=255)
+  local color = "rgb("
+  color += random.intInRange(rMin,rMax) + ","
+  color += random.intInRange(gMin,gMax) + ","
+  color += random.intInRange(bMin,bMax) + ")"
+  return color
+end
+
+
+//Returns a random float number from the range you gave.
+random.floatInRange = function(MIN,MAX)
+  return random.next() * (MAX - MIN + 1) + MIN
+end
+
+//Returns a random integer from the range you gave.
+random.intInRange = function(MIN,MAX)
+  return floor(random.next() * (floor(MAX) - ceil(MIN) + 1) + ceil(MIN))
+end
+
+//Returns a random character from the string you gave.
+random.stringCharacter = function(string)
+  local character = random.nextInt(string.length)
+  return string[character]
+end
+
+//Returns a random item from the list you gave.
+random.listItem = function(list)
+  local item = random.nextInt(list.length)
+  return list[item]
+end
+end()
+
+
+
+function()
+result = function()
+  if mouse.left then
+    cellClickedX = 0
+    cellClickedY = 0
+    cellClickedX = xpos_to_grid(mouse.x, 6, 420)
+    cellClickedY = ypos_to_grid(mouse.y, 3, 210)
+    if cellClickedX == 0 and cellClickedY == 2 then
+      theme = "red"
+    elsif cellClickedX == 0 and cellClickedY == 0 then
+      theme = "blue"
+    elsif cellClickedX == 0 and cellClickedY == 1 then
+      theme = "green"
+    end
+    if cellClickedX == 3 or cellClickedX == 4 then
+      if cellClickedY == 1 then
+        sleep 0.5 second
+        mode = "roll"
+      end
+    end
+  end
+end
+
+themeChange = function()
+  if mouse.left then
+    cellClickedX = 0
+    cellClickedY = 0
+    cellClickedX = xpos_to_grid(mouse.x, 6, 420)
+    cellClickedY = ypos_to_grid(mouse.y, 3, 210)
+    if cellClickedX == 0 and cellClickedY == 2 then
+      theme = "red"
+    elsif cellClickedX == 0 and cellClickedY == 0 then
+      theme = "blue"
+    elsif cellClickedX == 0 and cellClickedY == 1 then
+      theme = "green"
+    end
+  end
+end
+
+
+rollLoading = function(sec)
+  screen.drawMap( "rolling", 0, 0, 420, 210)
+  screen.setColor("#FFF")
+  screen.setFont("RetroGaming")
+  i = 0
+  while i <= sec
+    if theme == 'red' then
+      clr = "#c50000"
+    elsif theme == 'green' then
+      clr = "#00c500"
+    elsif theme == 'blue' then
+      clr = "#0000c5"
+    end
+    screen.clear(clr)
+    screen.drawText("ROLLING", 0, 0, 30)
+    sleep 0.5 second
+    screen.clear(clr)
+    screen.drawText("ROLLING.", 0, 0, 30)
+    sleep 0.5 second
+    screen.clear(clr)
+    screen.drawText("ROLLING..", 0, 0, 30)
+    sleep 0.5 second
+    screen.clear(clr)
+    screen.drawText("ROLLING...", 0, 0, 30)
+    sleep 0.5 second
+    i += 1
+  end
+end
+
+randomizer = function()
+  f = 1
+  while f == 1
+    r = random.nextInt(4)
+    if rollResult == previousRoll or rollResult == ancientRoll then
+      if r > 2 then
+        rollNumber()
+      end
+    else
+      f = 0
+    end
+  end
+end
+
+rollNumber = function()
+  rollResultOld = random.intInRange(1,6)
+  rollResult = random.nextInt(6)+1
+end
+
+rolling = function()
+  ancientRoll = previousRoll
+  previousRoll = rollResult
+  rollNumber()
+  randomizer
+  rollWait = random.nextInt(1)
+  rollLoading(rollWait)
+  sleep 0.5 second
+  mode = 'result'
+end
+end()
+
+
+
+function()
+init = function()
+  mode = 'result'
+  theme = 'blue'
+  j = 1
+end
+
+update = function()
+  if mode == "result" then
+    result()
+  elsif mode == "roll" then
+    rolling()
+  end
+end
+
+draw = function()
+  screen.clear()
+  if mode == "result" then
+    drawResultScreen()
+  end
+end
+
+
+drawResultScreen = function()
+  if theme == 'blue'then
+    bgMap = maps['mapb']
+    screen.drawMap( "mapb", 0, 0, 420, 210 )
+  elsif theme == 'red' then
+    bgMap = maps['mapr']
+    screen.drawMap( "mapr", 0, 0, 420, 210 )
+  elsif theme == 'green' then
+    bgMap = maps['mapg']
+    screen.drawMap( "mapg", 0, 0, 420, 210 )
+  end
+  screen.setColor("#FFF")
+  screen.setFont("RetroGaming")
+  screen.setAlpha(getFlashValue())
+  screen.drawText("ROLL", 75, 1, 18)
+  screen.setAlpha(1)
+  if rollResult == 1 then
+    bgMap.set(1,1, '1')
+  elsif rollResult == 2 then
+    bgMap.set(1,1, '2')
+  elsif rollResult == 3 then
+    bgMap.set(1,1, '3')
+  elsif rollResult == 4 then
+    bgMap.set(1,1, '4')
+  elsif rollResult == 5 then
+    bgMap.set(1,1, '5')
+  elsif rollResult == 6 then
+    bgMap.set(1,1, '6')
+  end
+  screen.drawText("Previous:", -30, -75, 8)
+  screen.drawText( previousRoll , 10, -75, 10)
+end
+end()
+
+
+</script></html>
