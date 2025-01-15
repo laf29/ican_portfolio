@@ -19,7 +19,7 @@
 ## Download and Installation
 
 To begin using this template, choose one of the following options to get started:
-* [Download the latest release on Start Bootstrap](https://startbootstrap.com/template-overviews/resume/)
+* [Download the latest release on Start Bootstrap](https://themewagon.com/themes/free-bootstrap-4-cv-template-download/)
 * Install via npm: `npm i startbootstrap-resume`
 * Clone the repo: `git clone https://github.com/BlackrockDigital/startbootstrap-resume.git`
 * [Fork, Clone, or Download on GitHub](https://github.com/BlackrockDigital/startbootstrap-resume)
